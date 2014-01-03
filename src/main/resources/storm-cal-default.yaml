@@ -1,0 +1,20 @@
+########### These MUST be filled in for a storm configuration
+#####################################################################
+topology.workers: 6
+#####################################################################
+#cal基本配置
+#PV推送间隔
+uc.storm.pv.update.interval: 20
+#PV计算周期
+uc.storm.pv.cal.interval: 300
+#UV推送周期
+uc.storm.uv.update.interval: 20
+#UV计算周期
+uc.storm.uv.cal.interval: 
+- 300
+- 3600
+- 86400
+#日志抛弃时间
+uc.storm.log.timeout: 600
+
+

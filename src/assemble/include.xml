@@ -1,0 +1,27 @@
+<assembly
+	xmlns="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.2"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.2 http://maven.apache.org/xsd/assembly-1.1.2.xsd">
+	<id>jar-with-dependencies</id>
+	<formats>
+		<format>jar</format>
+	</formats>
+	<includeBaseDirectory>false</includeBaseDirectory>
+	<dependencySets>
+		<dependencySet>
+			<!--  <includes>
+				<include>uc.cn.storm:storm-calculate</include>
+				<include>org.apache.kafka:kafka_2.9.2</include>
+			</includes>
+			 -->
+			 <excludes>
+			 	<exclude>org.slf4j:slf4j-api</exclude>
+			 	<exclude>storm:storm</exclude>
+			 </excludes>
+			<outputDirectory>/</outputDirectory>
+			<useProjectArtifact>true</useProjectArtifact>
+			<unpack>true</unpack>
+			<scope>runtime</scope>
+		</dependencySet>
+	</dependencySets>
+</assembly>

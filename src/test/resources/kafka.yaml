@@ -1,0 +1,55 @@
+########### These MUST be filled in for a storm configuration
+#####################################################################
+topology.workers: 6
+#####################################################################
+#JDBC连接配置 jdbchelper使用
+uc.storm.jdbc.connect: "jdbc:mysql://hadoop1:3306/result"
+uc.storm.jdbc.driver: "com.mysql.jdbc.Driver"
+uc.storm.jdbc.user: "storm"
+uc.storm.jdbc.passwd: "storm"
+
+#pv数据表名
+uc.storm.pv.table: "pv"
+#uv数据表名
+uc.storm.uv.table: "uv"
+#####################################################################
+#kafka消息队列主题
+uc.storm.kafka.topic: kafka
+#批量处理的日志量,kafka收集器每收集到10条日志才会发送
+uc.storm.kafka.batch: 10
+#####################################################################
+#设置这个topology的spout和bolt的类
+uc.storm.cal.topology.id: "业务1"
+#spout
+uc.storm.cal.spout: "cn.uc.storm.cal.spout.KafkaSpout7"
+uc.storm.cal.spout.num: 1
+
+#用户格式转化的Bolt
+uc.storm.cal.calbolt: "cn.uc.storm.cal.bolt.imp.AutoCalBolt"
+uc.storm.cal.calbolt.num: 1
+
+#Pv计算的Bolt
+uc.storm.cal.pvbolt: "cn.uc.storm.cal.bolt.PvBolt"
+uc.storm.cal.pvbolt.num: 1
+#Pv汇总的Bolt
+uc.storm.cal.pvsumbolt: "cn.uc.storm.cal.bolt.imp.JdbcPvSumBolt"
+uc.storm.cal.pvsumbolt.num: 1
+
+#Uv计算的Bolt
+uc.storm.cal.uvbolt: "cn.uc.storm.cal.bolt.UmUvBolt"
+uc.storm.cal.uvbolt.num: 1
+#Uv汇总的Bolt
+uc.storm.cal.uvsumbolt: "cn.uc.storm.cal.bolt.imp.JdbcUvSumBolt"
+uc.storm.cal.uvsumbolt.num: 1
+
+#uniqe set的去重类
+uc.storm.uniqeset.class: "cn.uc.storm.cal.bolt.uv.BloomUniqeSet"
+
+#清理间隔 默认5分钟
+uc.storm.uniqe.clean.interval: 5
+#uniqe set的去重类
+uc.storm.uniqeset.class: "cn.uc.storm.cal.bolt.uv.BloomUniqeSet"
+#bloom过滤器大小
+uc.storm.uniqeset.bloom.bytesize: 1048576
+#误差率
+uc.storm.uniqeset.bloom.errorrate: 0.01
