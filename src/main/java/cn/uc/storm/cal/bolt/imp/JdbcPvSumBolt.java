@@ -33,6 +33,7 @@ public class JdbcPvSumBolt extends PvSumBolt implements SubmitInit {
 			for(PvPoint pvPoint:pvPointList){
 				String sql = MysqlHelper.getUpdateSqlFromPvPoint(tableName,pvPoint);
 				boolean ret = stmt.execute(sql);
+				LOG.debug("flush the sql"+sql);
 			}
 			stmt.close();
 			

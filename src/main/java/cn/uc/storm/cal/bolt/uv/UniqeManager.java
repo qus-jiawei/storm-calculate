@@ -27,7 +27,8 @@ public class UniqeManager {
 	
 
 	/**
-	 * 用于获取最小有效期的UvKey TODO 使用最小堆实现
+	 * 用于获取最小有效期的UvKey 
+	 * TODO 使用最小堆实现
 	 */
 	private SortedMap<Long, UvKey> timeOutMap;
 	// 生成序号，为了防止过期时间一样，过期时间统一*10000加上index

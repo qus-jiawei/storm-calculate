@@ -33,7 +33,7 @@ public class JdbcUvSumBolt extends UvSumBolt implements SubmitInit{
 			for(UvPoint uvPoint:uvPointList){
 				String sql = MysqlHelper.getUpdateSqlFromUvPoint(tableName, uvPoint);
 				boolean ret = stmt.execute(sql);
-				LOG.info("flush the sql"+sql);
+				LOG.debug("flush the sql"+sql);
 			}
 			stmt.close();
 			
