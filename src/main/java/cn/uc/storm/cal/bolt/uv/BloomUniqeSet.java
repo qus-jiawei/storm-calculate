@@ -60,13 +60,13 @@ public class BloomUniqeSet implements UniqeSet {
 		LOG.info(bbf.toString());
 	}
 	@Override
-	public boolean add(String uniqe) {
+	public boolean isNewAndadd(String uniqe) {
 		byte[] temp = uniqe.getBytes();
 		if(bbf.contains(temp, 0, temp.length)){
-			return true;
+			return false;
 		}else{
 			bbf.add(uniqe.getBytes());
-			return false;
+			return true;
 		}
 	}
 

@@ -60,10 +60,13 @@ public class PvBolt extends BaseRichBolt {
 	 * 日志超时时间
 	 */
 	private long logTimeOut;
+	private int timeOutLog;
+	private int logNumber;
 	
 	private Object lock;
 	
 	private Timer timer;
+
 
 	class EmitTimerTask extends TimerTask {
 		private OutputCollector collector;
@@ -88,7 +91,9 @@ public class PvBolt extends BaseRichBolt {
 				collector.emit(Constants.PV_STREAM_ID, new Values(
 						key.recordTs, key.point, value.getConut()));
 			}
-
+			LOG.info("emit recive log:"+logNumber+" timeout log:"+timeOutLog+" emit log:"+temp.size());
+			logNumber=0;
+			timeOutLog=0;
 		}
 	};
 
@@ -114,11 +119,11 @@ public class PvBolt extends BaseRichBolt {
 		String point = input.getString(0);
 		int count = input.getInteger(1);
 		long ts = input.getLong(2);
-		
+		logNumber++ ;
 		if( System.currentTimeMillis() - ts > logTimeOut){
 			//超时日志
 			//直接抛弃不作处理
-			//TODO 加入异步日志，打印收到的超时的日志总量 
+			timeOutLog++;
 			return ;
 		}
 
@@ -149,5 +154,5 @@ public class PvBolt extends BaseRichBolt {
 			timer.cancel();
 		}
 	}
-
+	 
 }

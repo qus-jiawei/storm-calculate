@@ -44,12 +44,10 @@ public class UniqeManager {
 	 */
 	private Map<UvKey, UniqeSet> uniqeMap;
 
-	// 清理线程
-	private Timer timer;
-
 	class CleanerTask extends TimerTask {
 		@Override
 		public void run() {
+			long begin = System.currentTimeMillis();
 			synchronized(lock){
 				LOG.info("into clean and report all");
 				while( timeOutMap.size() > 0  ){
@@ -63,19 +61,20 @@ public class UniqeManager {
 						break;
 					}
 				}
-				LOG.info("there is "+uniqeMap.size()+" uniqe left");
+				LOG.info("UM There is "+uniqeMap.size()+" uniqe left");
 				for(UniqeSet set:uniqeMap.values()){
 					LOG.info(set);
 				}
 				
 			}
+			LOG.info("UM clean using:"+(System.currentTimeMillis()-begin)+" ms");
 		}
 	}
 
 	private Map conf;
 	private Class uniqeSetClass;
 
-	public UniqeManager(long logTimeOut, Map stormConf) {
+	public UniqeManager(Timer timer,long logTimeOut, Map stormConf) {
 		this.logTimeOut = logTimeOut;
 		timeOutMap = new TreeMap<Long, UvKey>();
 		uniqeMap = new HashMap<UvKey, UniqeSet>();
@@ -84,7 +83,6 @@ public class UniqeManager {
 		long cleanInterval = ((Long) stormConf.get(UniqeManager.UNIQ_CLEAN_INTERVAL))*1000;
 		// timer.schedule(arg0, arg1, arg2)
 		CleanerTask task = new CleanerTask();
-		timer = new Timer();
 		timer.schedule(task, cleanInterval, cleanInterval);
 		LOG.info("begin clean thread with cleanInterval: "+cleanInterval+" ms");
 		try {
@@ -112,7 +110,7 @@ public class UniqeManager {
 
 			uniqeMap.put(key, set);
 		}
-		return set.add(uniqe);
+		return set.isNewAndadd(uniqe);
 	}
 
 	/**
@@ -149,9 +147,5 @@ public class UniqeManager {
 					+ "+ catch Exception", e);
 		}
 		return null;
-	}
-	
-	public void close(){
-		timer.cancel();
 	}
 }

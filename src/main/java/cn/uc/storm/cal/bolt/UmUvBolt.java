@@ -23,7 +23,7 @@ public class UmUvBolt extends UvBolt{
 	public void prepare(Map stormConf, TopologyContext context,
 			OutputCollector collector) {
 		super.prepare(stormConf, context, collector);
-		um = new UniqeManager(this.logTimeOut,stormConf);
+		um = new UniqeManager(this.timer,this.logTimeOut,stormConf);
 	}
 
 	@Override
@@ -33,6 +33,6 @@ public class UmUvBolt extends UvBolt{
 	
 	@Override
 	public void cleanup() {
-		um.close();
+		timer.cancel();
 	}  
 }

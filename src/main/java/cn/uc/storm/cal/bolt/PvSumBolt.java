@@ -144,5 +144,9 @@ public abstract class PvSumBolt extends BaseRichBolt  {
 	 */
 	public abstract void flush(List<PvPoint> pvPointList);
 	
+	@Override
+	public void cleanup() {
+		timer.cancel();
+	}  
 
 }

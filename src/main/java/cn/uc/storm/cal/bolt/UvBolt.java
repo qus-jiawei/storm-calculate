@@ -55,10 +55,12 @@ public abstract class UvBolt extends BaseRichBolt {
 	 * 日志超时时间
 	 */
 	protected long logTimeOut;
+	private int timeOutLog;
+	private int logNumber;
 	
 	private Object lock;
 	
-	private Timer timer;
+	protected Timer timer;
 
 	class EmitTimerTask extends TimerTask {
 		private OutputCollector collector;
@@ -84,7 +86,9 @@ public abstract class UvBolt extends BaseRichBolt {
 						key.calInterval,key.recordTs, key.point, 
 						value.getConut()));
 			}
-
+			LOG.info("emit recive log:"+logNumber+" timeout log:"+timeOutLog+" emit log:"+temp.size());
+			logNumber=0;
+			timeOutLog=0;
 		}
 	};
 
@@ -112,10 +116,14 @@ public abstract class UvBolt extends BaseRichBolt {
 		int count = input.getInteger(2);
 		long ts = input.getLong(3);
 		
+		//可能有冲突,但影响不大不处理
+		logNumber ++ ;
+		
 		if( System.currentTimeMillis() - ts > logTimeOut){
 			//超时日志
 			//直接抛弃不作处理
 			//TODO 加入异步日志，打印收到的超时的日志总量 
+			timeOutLog++;
 			return ;
 		}
 		

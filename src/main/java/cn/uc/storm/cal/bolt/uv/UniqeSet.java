@@ -26,7 +26,7 @@ public interface UniqeSet {
 	 * @param uniqe 去重的string
 	 * @return 是否是新的key
 	 */
-	public boolean add(String uniqe);
+	public boolean isNewAndadd(String uniqe);
 	/**
 	 * 进行清理
 	 * 如果有外部资源依赖可以在这里关闭

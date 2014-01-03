@@ -26,7 +26,7 @@ import backtype.storm.tuple.Values;
 import cn.uc.storm.cal.utils.Helper;
 
 public class KafkaSpout7 extends BaseRichSpout  {
-	private static Logger LOG = Logger.getLogger(KafkaSpout8.class);
+	private static Logger LOG = Logger.getLogger(KafkaSpout7.class);
 	public static final String KAFKA_TOPIC_KEY = "uc.storm.kafka.topic";
 	public static final String KAFKA_BATCH_NUMBER = "uc.storm.kafka.batch";
 	private SpoutOutputCollector collector;

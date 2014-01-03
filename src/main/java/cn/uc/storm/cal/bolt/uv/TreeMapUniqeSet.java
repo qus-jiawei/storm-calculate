@@ -17,7 +17,7 @@ public class TreeMapUniqeSet implements UniqeSet {
 	}
 	
 	@Override
-	public boolean add(String uniqe) {
+	public boolean isNewAndadd(String uniqe) {
 		return set.add(uniqe);
 	}
 

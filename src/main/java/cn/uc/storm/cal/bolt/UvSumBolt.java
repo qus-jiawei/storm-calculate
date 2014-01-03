@@ -113,4 +113,9 @@ public abstract class UvSumBolt extends BaseRichBolt  {
 	}
 	
 	public abstract void flush(List<UvPoint> uvPointList);
+	
+	@Override
+	public void cleanup() {
+		timer.cancel();
+	}  
 }
