@@ -1,4 +1,4 @@
-storm-realtime
+storm-calculate
 ==============
 
 本项目是一个简单的构建于storm之上的简单统计PV和UV的框架。
