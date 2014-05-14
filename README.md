@@ -9,7 +9,7 @@ storm 从kafka获取数据经过计算将结果推送到mysql。
 
 ####计算拓扑图:
 
-
+![](https://raw.github.com/uhp/uhp/master/doc/front/for_doc/web-服务.jpg)
 
 
 ####bolt介绍:
